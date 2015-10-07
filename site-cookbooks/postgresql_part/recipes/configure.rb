@@ -55,3 +55,15 @@ if primary_db?(node['ipaddress'])
 else
   include_recipe 'postgresql_part::configure_standby'
 end
+
+if node['postgresql_part']['pgpool-II']['use']
+  event_handlers_dir = node['postgresql_part']['event_handlers_dir']
+  file = File.join(event_handlers_dir, 'check-state-event-handler')
+  app_user = node['postgresql_part']['application']['user']
+
+  cmdstr = 'sed -i.bak'
+  cmdstr << " -e 's/^\\(.*postgres psql.*-U \\)application\\(.*\\)/\\1#{app_user}\\2/'"
+  cmdstr << " #{file}"
+
+  execute cmdstr
+end

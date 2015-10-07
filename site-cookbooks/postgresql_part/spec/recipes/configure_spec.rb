@@ -118,4 +118,14 @@ describe 'postgresql_part::configure' do
       expect(chef_run).to include_recipe 'postgresql_part::configure_standby'
     end
   end
+
+  describe 'replace application user in the check-state-event-handler shellscript file' do
+    it '' do
+      cmdstr = 'sed -i.bak'
+      cmdstr << " -e 's/^\\(.*postgres psql.*-U \\)application\\(.*\\)/\\1application\\2/'"
+      cmdstr << ' /opt/consul/event_handlers/check-state-event-handler'
+
+      expect(chef_run).to run_execute(cmdstr)
+    end
+  end
 end
