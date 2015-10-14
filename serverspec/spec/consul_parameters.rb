@@ -2,6 +2,7 @@ require 'net/http'
 require 'json'
 require 'base64'
 require 'active_support'
+require 'active_support/core_ext'
 require 'net/http'
 require 'uri'
 require 'cgi'
@@ -19,7 +20,7 @@ module ConsulParameters
     rescue => exception
       p exception.message
     end
-    parameters
+    parameters.with_indifferent_access
   end
 
   def read_servers
@@ -37,6 +38,6 @@ module ConsulParameters
     rescue
       servers = {}
     end
-    servers
+    servers.with_indifferent_access
   end
 end

@@ -47,6 +47,8 @@ describe 'postgresql_part::configure' do
 
     allow_any_instance_of(Chef::Recipe)
       .to receive(:generate_password).with('db_replication').and_return(generate_passwd)
+    allow_any_instance_of(Chef::Recipe)
+      .to receive(:generate_password).with('db_application').and_return(generate_passwd)
     allow_any_instance_of(Chef::Resource)
       .to receive(:generate_password).with('db_replication').and_return(generate_passwd)
     allow_any_instance_of(Chef::Resource)
@@ -81,6 +83,12 @@ describe 'postgresql_part::configure' do
       'db_name' => 'replication',
       'user' => chef_run.node['postgresql_part']['replication']['user'],
       'passwd' => generate_passwd
+    }, {
+      'ip' => ap_ip,
+      'port' => '9999',
+      'db_name' => '*',
+      'user' => chef_run.node['postgresql_part']['application']['user'],
+      'passwd' => generate_passwd
     }]
 
     expect(chef_run).to create_template("#{chef_run.node['postgresql_part']['home_dir']}/.pgpass").with(
@@ -108,6 +116,16 @@ describe 'postgresql_part::configure' do
 
     it 'include standby recipe' do
       expect(chef_run).to include_recipe 'postgresql_part::configure_standby'
+    end
+  end
+
+  describe 'replace application user in the check-state-event-handler shellscript file' do
+    it '' do
+      cmdstr = 'sed -i.bak'
+      cmdstr << " -e 's/^\\(.*postgres psql.*-U \\)application\\(.*\\)/\\1application\\2/'"
+      cmdstr << ' /opt/consul/event_handlers/check-state-event-handler'
+
+      expect(chef_run).to run_execute(cmdstr)
     end
   end
 end
