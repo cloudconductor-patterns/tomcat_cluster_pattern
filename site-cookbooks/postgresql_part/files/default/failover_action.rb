@@ -270,12 +270,8 @@ class FailoverAction
 
       primary_svr = primary_svr.first
 
-      # puts "primary => #{primary_svr}"
-
       node_name = primary_svr['Node']
       catalog_node_info = CloudConductor::ConsulClient::Catalog.node(node_name)
-
-      # puts "node => #{catalog_node_info}"
 
       data = {}
       data = data.merge(catalog_node_info['Node'])
