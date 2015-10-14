@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+## version 1.1.1 (2015/10/15)
+
+  - Fix the problem of tag indicating primary of database.
+    When it was allowed recover the older primary db, did not removed tag indicating primary.
+
 ## version 1.1.0 (2015/09/30)
 
   - Support CloudConductor v1.1.
