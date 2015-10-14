@@ -28,6 +28,18 @@ pgpass = [
   }
 ]
 
+node['cloudconductor']['servers'].each do |_hostname, sv_info|
+  next unless sv_info['roles'].include?('ap')
+
+  pgpass << {
+    'ip' => sv_info['private_ip'],
+    'port' => '9999',
+    'db_name' => '*',
+    'user' => node['postgresql_part']['application']['user'],
+    'passwd' => generate_password('db_application')
+  }
+end
+
 template "#{node['postgresql_part']['home_dir']}/.pgpass" do
   source 'pgpass.erb'
   mode '0600'
@@ -42,4 +54,16 @@ if primary_db?(node['ipaddress'])
   include_recipe 'postgresql_part::configure_primary'
 else
   include_recipe 'postgresql_part::configure_standby'
+end
+
+if node['postgresql_part']['pgpool-II']['use']
+  event_handlers_dir = node['postgresql_part']['event_handlers_dir']
+  file = File.join(event_handlers_dir, 'check-state-event-handler')
+  app_user = node['postgresql_part']['application']['user']
+
+  cmdstr = 'sed -i.bak'
+  cmdstr << " -e 's/^\\(.*postgres psql.*-U \\)application\\(.*\\)/\\1#{app_user}\\2/'"
+  cmdstr << " #{file}"
+
+  execute cmdstr
 end
