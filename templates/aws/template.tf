@@ -126,5 +126,5 @@ output "cluster_addresses" {
 }
 
 output "frontend_addresses" {
-  value = "${join(", ", concat(aws_instance.lb_server.*.public_ip, aws_instance.web_ap_server.*.public_ip, aws_instance.db_server.*.public_ip))}"
+  value = "${join(", ", concat(aws_eip.lb_server_eip.*.public_ip, aws_instance.web_ap_server.*.public_ip, aws_instance.db_server.*.public_ip))}"
 }
