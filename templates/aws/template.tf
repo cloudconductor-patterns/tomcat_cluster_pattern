@@ -1,7 +1,7 @@
 resource "aws_eip" "lb_server_eip" {
   count = "${var.lb_server_size}"
   vpc = true
-  instance = "${element(aws_instance.lb_server.id, count.index)}"
+  instance = "${element(aws_instance.lb_server.*.id, count.index)}"
 }
 
 resource "aws_security_group" "lb_security_group" {
