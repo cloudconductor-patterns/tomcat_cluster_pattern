@@ -38,5 +38,5 @@ variable "web_ap_server_size" {
 }
 variable "db_server_size" {
   description = "DbServer instance size"
-  default = "1"
+  default = "2"
 }
