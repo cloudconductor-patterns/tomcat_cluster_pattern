@@ -7,9 +7,17 @@ version:          "1.1.1"
 url:              "https://github.com/cloudconductor-patterns/tomcat_pattern"
 
 type:      "platform"
-depends:   []
+dependencies: ["common_network"]
 conflicts: []
 
 supports:
   - platform: "centos"
     platform_version: "6.5"
+
+providers:
+    aws:
+      - cloud_formation
+      - terraform
+    openstack:
+      - cloud_formation
+      - terraform
