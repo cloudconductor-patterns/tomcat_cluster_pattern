@@ -129,6 +129,6 @@ output "consul_addresses" {
   value = "${join(", ", concat(aws_eip.lb_server_eip.*.public_ip, aws_instance.web_ap_server.*.public_ip, aws_instance.db_server.*.public_ip))}"
 }
 
-output "frontend_addresses" {
+output "frontend_address" {
   value = "${aws_eip.lb_server_eip.0.public_ip}"
 }

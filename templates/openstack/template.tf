@@ -131,6 +131,6 @@ output "consul_addresses" {
   value = "${join(", ", openstack_compute_floatingip_v2.main.*.address)}"
 }
 
-output "frontend_addresses" {
+output "frontend_address" {
   value = "${openstack_compute_floatingip_v2.main.0.address}"
 }
