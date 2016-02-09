@@ -10,6 +10,11 @@ type:      "platform"
 dependencies: ["common_network"]
 conflicts: []
 
+roles:
+  - lb
+  - web,ap
+  - db
+
 supports:
   - platform: "centos"
     platform_version: "6.5"
