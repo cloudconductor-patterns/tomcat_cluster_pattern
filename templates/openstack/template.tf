@@ -127,6 +127,10 @@ output "cluster_addresses" {
   value = "${join(", ", concat(openstack_compute_instance_v2.lb_server.*.network.0.fixed_ip_v4, openstack_compute_instance_v2.web_ap_server.*.network.0.fixed_ip_v4, openstack_compute_instance_v2.db_server.*.network.0.fixed_ip_v4))}"
 }
 
-output "frontend_addresses" {
+output "consul_addresses" {
   value = "${join(", ", openstack_compute_floatingip_v2.main.*.address)}"
+}
+
+output "frontend_addresses" {
+  value = "${openstack_compute_floatingip_v2.main.0.address}"
 }
