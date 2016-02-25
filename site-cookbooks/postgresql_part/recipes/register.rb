@@ -5,7 +5,7 @@
 #
 
 service_info = consul_service_info('postgresql')
-tag = primary_db?(node['ipaddress']) ? 'primary' : 'standby'
+tag = primary_db?(node['hostname']) ? 'primary' : 'standby'
 
 unless service_info.nil?
   service_info['Tags'] = [] if service_info['Tags'].nil?
