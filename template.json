@@ -57,7 +57,7 @@
       "Type" : "Number",
       "Default" : "1"
     },
-    "DBServerSize" : {
+    "DbServerSize" : {
       "Description" : "DBServer instance size",
       "Type" : "Number",
       "Default" : "2",
