@@ -74,7 +74,7 @@ resource "openstack_compute_secgroup_v2" "db_security_group" {
 
 resource "openstack_compute_instance_v2" "lb_server" {
   count = "${var.lb_server_size}"
-  name = "LbServer"
+  name = "LbServer-${count.index + 1}"
   image_id = "${var.lb_image}"
   flavor_name = "${var.lb_instance_type}"
   metadata {
@@ -92,7 +92,7 @@ resource "openstack_compute_instance_v2" "lb_server" {
 resource "openstack_compute_instance_v2" "web_ap_server" {
   count = "${var.web_ap_server_size}"
   depends_on = ["openstack_compute_instance_v2.lb_server"]
-  name = "ApServer"
+  name = "ApServer-${count.index + 1}"
   image_id = "${var.web_ap_image}"
   flavor_name = "${var.web_ap_instance_type}"
   metadata {
@@ -109,7 +109,7 @@ resource "openstack_compute_instance_v2" "web_ap_server" {
 resource "openstack_compute_instance_v2" "db_server" {
   count = "${var.db_server_size}"
   depends_on = ["openstack_compute_instance_v2.lb_server"]
-  name = "DbServer"
+  name = "DbServer-${count.index + 1}"
   image_id = "${var.db_image}"
   flavor_name = "${var.db_instance_type}"
   metadata {
