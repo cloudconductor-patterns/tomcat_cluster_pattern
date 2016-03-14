@@ -31,7 +31,7 @@
       "Default" : "t2.small"
     },
     "DbInstanceType" : {
-      "Description" : "DBServer instance type",
+      "Description" : "DbServer instance type",
       "Type" : "String",
       "Default" : "t2.small"
     },
@@ -44,7 +44,7 @@
       "Type" : "String"
     },
     "DbImageId" : {
-      "Description" : "[computed] DBServer Image Id. This parameter is automatically filled by CloudConductor.",
+      "Description" : "[computed] DbServer Image Id. This parameter is automatically filled by CloudConductor.",
       "Type" : "String"
     },
     "LbServerSize" : {
@@ -58,7 +58,7 @@
       "Default" : "1"
     },
     "DbServerSize" : {
-      "Description" : "DBServer instance size",
+      "Description" : "DbServer instance size",
       "Type" : "Number",
       "Default" : "2",
       "MinValue" : "2"
@@ -330,7 +330,7 @@
       },
       "DependsOn" : "WebApSecurityGroup"
     },
-    "DBServer" : {
+    "DbServer" : {
       "Type" : "AWS::EC2::Instance",
       "DependsOn" : "LbWaitCondition",
       "Metadata" : {
@@ -358,7 +358,7 @@
           "cat >> /opt/cloudconductor/config <<EOF\n",
           "ROLE=db\n",
           "STACK_NAME=", { "Ref": "AWS::StackName" }, "\n",
-          "RESOURCE_NAME=DBServer\n",
+          "RESOURCE_NAME=DbServer\n",
           "REGION=", { "Ref": "AWS::Region" }, "\n",
           "EOF\n",
           "# Run Consul\n",
@@ -371,14 +371,14 @@
           "for i in `seq 10`; do\n",
           "  if [ ! -z \"`/usr/local/bin/consul members | grep ${host_name}`\" ]; then\n",
           "    # Send success signal\n",
-          "    cfn-signal -e 0 -r 'DBServer Setup complete' '", { "Ref" : "DBWaitHandle" }, "'\n",
+          "    cfn-signal -e 0 -r 'DbServer Setup complete' '", { "Ref" : "DBWaitHandle" }, "'\n",
           "    exit 0\n",
           "  fi\n",
           "  sleep 1\n",
           "done\n",
           "error_exit 'Failed to join the consul cluster.'\n"
         ]]}},
-        "Tags" : [{"Key": "Name", "Value": "DBServer"}, {"Key": "Role", "Value": "db"}]
+        "Tags" : [{"Key": "Name", "Value": "DbServer"}, {"Key": "Role", "Value": "db"}]
       }
     },
     "DBSecurityGroup" : {
@@ -437,7 +437,7 @@
     },
     "DBWaitCondition" : {
       "Type" : "AWS::CloudFormation::WaitCondition",
-      "DependsOn" : "DBServer",
+      "DependsOn" : "DbServer",
       "Properties" : {
         "Handle" : { "Ref" : "DBWaitHandle" },
         "Timeout" : "600"
