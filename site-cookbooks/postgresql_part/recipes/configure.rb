@@ -65,7 +65,7 @@ template "#{node['postgresql_part']['home_dir']}/.pgpass" do
   )
 end
 
-if primary_db?(node['ipaddress'])
+if primary_db?(node['hostname'])
   include_recipe 'postgresql_part::configure_primary'
 else
   include_recipe 'postgresql_part::configure_standby'

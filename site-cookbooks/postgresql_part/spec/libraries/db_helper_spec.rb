@@ -67,18 +67,19 @@ describe 'DbHelper' do
     end
     describe 'if found at the consul' do
       before do
-        allow(CloudConductor::ConsulClient::Catalog).to receive(:service).and_return([{ 'Address' => '127.0.0.1' }])
+        response = [{ 'Node' => 'db1', 'Address' => '127.0.0.1' }]
+        allow(CloudConductor::ConsulClient::Catalog).to receive(:service).and_return(response)
       end
       describe 'and registerd private_ip is same as the argument' do
         it 'return true' do
-          ip = @helper.db_servers[0]['private_ip']
-          expect(@helper.primary_db?(ip)).to eq(true)
+          hostname = @helper.db_servers[0]['hostname']
+          expect(@helper.primary_db?(hostname)).to eq(true)
         end
       end
       describe 'and registerd private_ip is different as the argument' do
         it 'return false' do
-          ip = @helper.db_servers[1]['private_ip']
-          expect(@helper.primary_db?(ip)).to eq(false)
+          hostname = @helper.db_servers[1]['hostname']
+          expect(@helper.primary_db?(hostname)).to eq(false)
         end
       end
     end
@@ -88,14 +89,14 @@ describe 'DbHelper' do
       end
       describe 'and first node private_ip of db_servers is same as the argument' do
         it 'return true' do
-          ip = @helper.db_servers[0]['private_ip']
-          expect(@helper.primary_db?(ip)).to eq(true)
+          hostname = @helper.db_servers[0]['hostname']
+          expect(@helper.primary_db?(hostname)).to eq(true)
         end
       end
       describe 'and first node private_ip of db_servers is diffeerent as the argument' do
         it 'return false' do
-          ip = @helper.db_servers[1]['private_ip']
-          expect(@helper.primary_db?(ip)).to eq(false)
+          hostname = @helper.db_servers[1]['hostname']
+          expect(@helper.primary_db?(hostname)).to eq(false)
         end
       end
     end
