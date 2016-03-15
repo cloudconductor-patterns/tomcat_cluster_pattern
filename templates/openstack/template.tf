@@ -82,7 +82,7 @@ resource "openstack_compute_instance_v2" "lb_server" {
     Name = "LbServer"
   }
   key_pair = "${var.key_name}"
-  security_groups = ["${openstack_compute_secgroup_v2.lb_security_group.name}", "${var.shared_security_group}"]
+  security_groups = ["${openstack_compute_secgroup_v2.lb_security_group.name}", "${var.shared_security_group_name}"]
   floating_ip = "${element(openstack_compute_floatingip_v2.main.*.address, count.index)}"
   network {
     uuid = "${element(split(", ", var.subnet_ids), count.index)}"
@@ -100,7 +100,7 @@ resource "openstack_compute_instance_v2" "web_ap_server" {
     Name = "ApServer"
   }
   key_pair = "${var.key_name}"
-  security_groups = ["${openstack_compute_secgroup_v2.web_ap_security_group.name}", "${var.shared_security_group}"]
+  security_groups = ["${openstack_compute_secgroup_v2.web_ap_security_group.name}", "${var.shared_security_group_name}"]
   network {
     uuid = "${element(split(", ", var.subnet_ids), count.index)}"
   }
@@ -117,7 +117,7 @@ resource "openstack_compute_instance_v2" "db_server" {
     Name = "DbServer"
   }
   key_pair = "${var.key_name}"
-  security_groups = ["${openstack_compute_secgroup_v2.db_security_group.name}", "${var.shared_security_group}"]
+  security_groups = ["${openstack_compute_secgroup_v2.db_security_group.name}", "${var.shared_security_group_name}"]
   network {
     uuid = "${element(split(", ", var.subnet_ids), count.index)}"
   }
