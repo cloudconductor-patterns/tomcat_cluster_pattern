@@ -31,8 +31,8 @@ resource "wakamevdc_security_group" "db_self_security_group" {
 resource "wakamevdc_instance" "lb_server" {
   count = "${var.lb_server_size}"
   display_name = "LbServer"
-  cpu_cores = 1
-  memory_size = 512
+  cpu_cores = "${var.lb_cpu_cores}"
+  memory_size = "${var.lb_memory_size}"
   image_id = "${var.lb_image}"
   hypervisor = "kvm"
   ssh_key_id = "${var.key_name}"
@@ -57,8 +57,8 @@ resource "wakamevdc_instance" "web_ap_server" {
   count = "${var.web_ap_server_size}"
   depends_on = ["wakamevdc_instance.lb_server"]
   display_name = "WebApServer"
-  cpu_cores = 1
-  memory_size = 512
+  cpu_cores = "${var.web_ap_cpu_cores}"
+  memory_size = "${var.web_ap_memory_size}"
   image_id = "${var.web_ap_image}"
   hypervisor = "kvm"
   ssh_key_id = "${var.key_name}"
@@ -83,8 +83,8 @@ resource "wakamevdc_instance" "db_server" {
   count = "${var.db_server_size}"
   depends_on = ["wakamevdc_instance.lb_server"]
   display_name = "DbServer"
-  cpu_cores = 1
-  memory_size = 512
+  cpu_cores = "${var.db_cpu_cores}"
+  memory_size = "${var.db_memory_size}"
   image_id = "${var.db_image}"
   hypervisor = "kvm"
   ssh_key_id = "${var.key_name}"
