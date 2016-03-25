@@ -35,7 +35,7 @@ resource "wakamevdc_instance" "lb_server" {
   memory_size = "${var.lb_memory_size}"
   image_id = "${var.lb_image}"
   hypervisor = "kvm"
-  ssh_key_id = "${var.key_name}"
+  ssh_key_id = "${var.wakame_key_id}"
 
   vif {
     network_id = "${var.global_network}"
@@ -61,7 +61,7 @@ resource "wakamevdc_instance" "web_ap_server" {
   memory_size = "${var.web_ap_memory_size}"
   image_id = "${var.web_ap_image}"
   hypervisor = "kvm"
-  ssh_key_id = "${var.key_name}"
+  ssh_key_id = "${var.wakame_key_id}"
 
   vif {
     network_id = "${var.global_network}"
@@ -87,7 +87,7 @@ resource "wakamevdc_instance" "db_server" {
   memory_size = "${var.db_memory_size}"
   image_id = "${var.db_image}"
   hypervisor = "kvm"
-  ssh_key_id = "${var.key_name}"
+  ssh_key_id = "${var.wakame_key_id}"
 
   vif {
     network_id = "${var.global_network}"
