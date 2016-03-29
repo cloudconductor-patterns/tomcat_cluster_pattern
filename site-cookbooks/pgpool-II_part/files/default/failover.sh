@@ -21,6 +21,10 @@ virtual_addr_list() {
   done
 }
 
+if [ "${CONSUL_SECRET_KEY}" == "" ]; then
+  CONSUL_SECRET_KEY=$(cat /etc/consul.d/default.json | jq -r .acl_master_token)
+fi
+
 if [ "$1" == "" ] ; then
   echo "new master node has not been specified in the argument !!"
   exit -1
@@ -39,4 +43,4 @@ if [ "$NEW_MASTER_NODE" == ""  ] ; then
   exit -1
 fi
 
-consul event -name="failover" -node="$NEW_MASTER_NODE"
+consul event -name="failover" -node="$NEW_MASTER_NODE" -token="$CONSUL_SECRET_KEY"
