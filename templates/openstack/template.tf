@@ -4,7 +4,7 @@ resource "openstack_compute_floatingip_v2" "main" {
 }
 
 resource "openstack_compute_secgroup_v2" "lb_security_group" {
-  name = "LbSecurityGroup"
+  name = "LbSecurityGroup${var.environment_id}"
   description = "Enable SSH access, HTTP access via port 80"
   rule {
     from_port = 80
@@ -21,7 +21,7 @@ resource "openstack_compute_secgroup_v2" "lb_security_group" {
 }
 
 resource "openstack_compute_secgroup_v2" "web_ap_security_group" {
-  name = "WebApSecurityGroup"
+  name = "WebApSecurityGroup${var.environment_id}"
   description = "Enable AJP access via / JMX access"
   rule {
     from_port = 80
@@ -56,7 +56,7 @@ resource "openstack_compute_secgroup_v2" "web_ap_security_group" {
 }
 
 resource "openstack_compute_secgroup_v2" "db_security_group" {
-  name = "DbSecurityGroup"
+  name = "DbSecurityGroup${var.environment_id}"
   description = "Enable DB access via port 5432"
   rule {
     from_port = 5432
