@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+## version 2.0.0 (2016/03/30)
+
+  - Support CloudConductor v2.0.
+  - Support latest Chef
+  - Support [Terraform](https://www.terraform.io/)
+  - Support [Wakame-vdc](http://wakame-vdc.org/)
+
 ## version 1.1.1 (2015/10/15)
 
   - Fix the problem of tag indicating primary of database.

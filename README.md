@@ -3,7 +3,7 @@ About
 
 This is the platform pattern designed to build the system hosts Apache Tomcat based application.
 
-* CentOS (6.5)
+* CentOS (~>6.5)
 * Java (>= 1.7)
 * Apache Tomcat (>= 7)
 * PostgreSQL (>= 9.4)
@@ -16,7 +16,7 @@ Requirements
 Prerequisites
 -------------
 
-- cloudconductor (>= 1.1)
+- cloudconductor (>= 2.0)
 
 How to use patterns
 ============
@@ -30,7 +30,7 @@ chef attributes.
 Copyright and License
 =====================
 
-Copyright 2014,2015 TIS inc.
+Copyright 2014-2016 TIS inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
