@@ -5,7 +5,7 @@
 
 ::Chef::Recipe.send(:include, DbHelper)
 
-if primary_db?(node['ipaddress'])
+if primary_db?(node['hostname'])
 
   postgresql_connection_info = {
     host: '127.0.0.1',

@@ -27,8 +27,8 @@ describe 'connect web_servers' do
   end
 
   web_servers.each do |server|
-    describe command("hping3 -S #{server[:private_ip]} -p 80 -c 5") do
-      its(:stdout) { should match(/sport=80 flags=SA/) }
+    describe host(server[:private_ip]) do
+      it { should be_reachable.with(port: 80) }
     end
   end
 end

@@ -46,19 +46,19 @@ if servers('ap').length > 1
   end
 end
 
-describe command("hping3 -S localhost -p #{pgpool_port} -c 5") do
-  its(:stdout) { should match(/sport=#{pgpool_port} flags=SA/) }
+describe host('localhost') do
+  it { should be_reachable.with(port: pgpool_port) }
 end
 
 if servers('ap').length > 1
   servers('ap').each do |server|
     if server[:private_ip] == private_ip
-      describe command("hping3 -S localhost -p #{wd_port} -c 5") do
-        its(:stdout) { should match(/sport=#{wd_port} flags=SA/) }
+      describe host('localhost') do
+        it { should be_reachable.with(port: wd_port) }
       end
     else
-      describe command("hping3 -S #{server[:private_ip]} -p #{wd_port} -c 5") do
-        its(:stdout) { should match(/sport=#{wd_port} flags=SA/) }
+      describe host(server[:private_ip]) do
+        it { should be_reachable.with(port: wd_port) }
       end
     end
   end
@@ -71,7 +71,7 @@ else
 end
 
 servers('db').each do |server|
-  describe command("hping3 -S #{server[:private_ip]} -p #{postgresql_port} -c 5") do
-    its(:stdout) { should match(/sport=#{postgresql_port} flags=SA/) }
+  describe host(server[:private_ip]) do
+    it { should be_reachable.with(port: postgresql_port) }
   end
 end
