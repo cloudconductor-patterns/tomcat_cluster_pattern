@@ -146,6 +146,7 @@ tasks:
             if [ -f {{backup_directory}}/pg_hba.conf ]; then
               rm -rf /var/lib/pgsql/9.4/data/*
               mv {{backup_directory}}/* /var/lib/pgsql/9.4/data
+              mkdir -p /var/lib/pgsql/9.4/data/pg_logical/snapshots
               chown -R postgres:postgres /var/lib/pgsql/9.4/data
               chmod 700 /var/lib/pgsql/9.4/data
             fi
