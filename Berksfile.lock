@@ -45,7 +45,7 @@ GRAPH
   libarchive (0.4.2)
     apt (~> 2.5)
     build-essential (~> 2.0)
-  openssl (6.0.0)
+  openssl (4.4.0)
     chef-sugar (>= 0.0.0)
   pgpool-II_part (0.0.1)
     cloudconductor (>= 0.0.0)
